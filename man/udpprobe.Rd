@@ -4,8 +4,15 @@
 \name{udpprobe}
 \alias{udpprobe}
 \alias{udpprobe-package}
-\title{...}
+\title{Send UDP payloads and gather response}
 \description{
+Unfortunately (but understandably) R has no build in connection
+support for the user datagram protocol ('UDP'). We aim to somewhat fix that
+with the ability to send a lightweight probe and receive lightweight
+responses over 'UDP' to a target host/port. Supports Windows, macOS and Linux
+clients.
+}
+\details{
 \itemize{
 \item URL: \url{https://gitlab.com/hrbrmstr/udpprobe}
 \item BugReports: \url{https://gitlab.com/hrbrmstr/udpprobe/issues}
@@ -14,3 +21,4 @@
 \author{
 Bob Rudis (bob@rud.is)
 }
+\keyword{internal}

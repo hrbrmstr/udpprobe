@@ -1,0 +1,7 @@
+PKG_CXXFLAGS =
+PKG_LIBS =
+
+all: clean
+
+clean:
+	rm -f $(SHLIB) $(OBJECTS)

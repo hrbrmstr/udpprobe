@@ -1,6 +1,6 @@
 Package: udpprobe
 Type: Package
-Title: udpprobe title goes here otherwise CRAN checks fail
+Title: Send User Datagram Protocol ('UDP') Probes and Receive Responses
 Version: 0.1.0
 Date: 2019-02-03
 Authors@R: c(
@@ -8,18 +8,22 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
-Description: A good description goes here otherwise CRAN checks fail.
+Description: Unfortunately (but understandably) R has no build in connection 
+    support for the user datagram protocol ('UDP'). We aim to somewhat fix that
+    with the ability to send a lightweight probe and receive lightweight
+    responses over 'UDP' to a target host/port. Supports Windows, macOS and Linux
+    clients.
 URL: https://gitlab.com/hrbrmstr/udpprobe
 BugReports: https://gitlab.com/hrbrmstr/udpprobe/issues
 Encoding: UTF-8
-License: AGPL
+NeedsCompilation: yes
+License: MIT + file LICENSE
 Suggests:
     testthat,
     covr
 Depends:
     R (>= 3.2.0)
 Imports:
-    httr,
-    jsonlite
+    curl
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1

@@ -1,0 +1,7 @@
+PKG_CXXFLAGS =
+PKG_LIBS = -lwsock32 -lws2_32
+
+all: clean
+
+clean:
+	rm -f $(SHLIB) $(OBJECTS)

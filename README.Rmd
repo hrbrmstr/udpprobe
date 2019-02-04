@@ -9,6 +9,7 @@ options(width=60)
 ```
 
 [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/udpprobe.svg?branch=master)](https://travis-ci.org/hrbrmstr/udpprobe) 
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/udpprobe?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/udpprobe) 
 [![Coverage Status](https://codecov.io/gh/hrbrmstr/udpprobe/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/udpprobe)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/udpprobe)](https://cran.r-project.org/package=udpprobe)
 

@@ -14,6 +14,8 @@
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @importFrom curl nslookup
+#' @importFrom openssl base64_decode
+#' @importFrom scales comma
 #' @keywords internal
 #' @useDynLib udpprobe, .registration=TRUE
 NULL

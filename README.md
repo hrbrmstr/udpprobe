@@ -1,6 +1,8 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/hrbrmstr/udpprobe.svg?branch=master)](https://travis-ci.org/hrbrmstr/udpprobe)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/hrbrmstr/udpprobe?branch=master&svg=true)](https://ci.appveyor.com/project/hrbrmstr/udpprobe)
 [![Coverage
 Status](https://codecov.io/gh/hrbrmstr/udpprobe/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/udpprobe)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/udpprobe)](https://cran.r-project.org/package=udpprobe)
@@ -77,7 +79,7 @@ c(
 (resp <- udp_send_payload("8.8.8.8", 53, dns_req))
 ##  [1] aa aa 81 80 00 01 00 01 00 00 00 00 07 65 78 61 6d 70
 ## [19] 6c 65 03 63 6f 6d 00 00 01 00 01 c0 0c 00 01 00 01 00
-## [37] 00 32 bd 00 04 5d b8 d8 22
+## [37] 00 38 0b 00 04 5d b8 d8 22
 
 paste0(as.integer(tail(resp, 4)), collapse = ".")
 ## [1] "93.184.216.34"
@@ -94,7 +96,7 @@ curl::nslookup("example.com")
 (x <- ubnt_discovery_probe(Sys.getenv("UBNT_TEST_HOST")))
 ##   [1] 01 00 00 a0 02 00 0a dc 9f db 3a 5f 09 8a ff bd a9 02
 ##  [19] 00 0a dc 9f db 3b 5f 09 c0 a8 02 01 01 00 06 dc 9f db
-##  [37] 3a 5f 09 0a 00 04 00 00 3f 1b 0b 00 15 39 36 39 20 2d
+##  [37] 3a 5f 09 0a 00 04 00 00 41 b3 0b 00 15 39 36 39 20 2d
 ##  [55] 20 4a 75 76 65 6e 61 6c 20 52 69 62 65 69 72 6f 0c 00
 ##  [73] 03 4c 4d 35 0d 00 11 4e 45 54 53 55 50 45 52 2d 53 49
 ##  [91] 51 55 45 49 52 41 0e 00 01 02 03 00 22 58 4d 2e 61 72
@@ -111,9 +113,9 @@ parse_ubnt_discovery_response(x)
 
 | Lang | \# Files |  (%) | LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
 | :--- | -------: | ---: | --: | ---: | ----------: | ---: | -------: | ---: |
-| C    |        3 | 0.33 | 144 | 0.53 |          38 | 0.39 |        4 | 0.03 |
-| R    |        5 | 0.56 | 103 | 0.38 |          30 | 0.31 |       93 | 0.64 |
-| Rmd  |        1 | 0.11 |  27 | 0.10 |          30 | 0.31 |       49 | 0.34 |
+| C    |        3 | 0.33 | 144 | 0.49 |          38 | 0.37 |        4 | 0.03 |
+| R    |        5 | 0.56 | 124 | 0.42 |          35 | 0.34 |       94 | 0.64 |
+| Rmd  |        1 | 0.11 |  27 | 0.09 |          30 | 0.29 |       50 | 0.34 |
 
 ## Code of Conduct
 

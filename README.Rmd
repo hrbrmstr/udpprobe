@@ -84,7 +84,7 @@ paste0(as.integer(tail(resp, 4)), collapse = ".")
 curl::nslookup("example.com")
 ```
 
-## Live Ubiquity Test (internet host redacted)
+## Live Ubiquiti Test (internet host redacted)
 
 ```{r ubnt}
 # the following just does:

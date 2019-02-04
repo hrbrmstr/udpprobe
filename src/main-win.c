@@ -15,18 +15,18 @@
 #include <winsock2.h>
 #include <io.h>
 
+#define BUFSIZE (1024*48)
+
 SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP buf_size) {
 
   SOCKET sockfd;
   SOCKADDR_IN target_addr;
   WSADATA wsaData;
 
-  int sz = REAL(buf_size)[0];
-  unsigned char *resp = (unsigned char *)R_alloc(sz, sizeof(unsigned char));
+  char resp[BUFSIZE];
+  int n, addr_size;
 
   DWORD tv = REAL(timeout)[0] * 1000;
-
-  int n, addr_size;
 
   WSAStartup(MAKEWORD(2, 2), &wsaData);
 
@@ -59,8 +59,8 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP b
     return(R_NilValue);
   }
 
-  memset(&resp, 0, sz);
-  n = recvfrom(sockfd, (char *)resp, sz, 0, (struct sockaddr *)&target_addr, &addr_size);
+  memset(&resp, 0, BUFSIZE);
+  n = recvfrom(sockfd, (char *)&resp, BUFSIZE, 0, (struct sockaddr *)&target_addr, &addr_size);
 
   if (n < 0) {
     Rf_warning("receive failed: %d", WSAGetLastError());

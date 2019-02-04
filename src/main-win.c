@@ -37,7 +37,7 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP b
     return(R_NilValue);
   }
 
-  if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&tv, sizeof(tv)) {
+  if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&tv, sizeof(tv))) {
     Rf_warning("timeout setting failed: %d", WSAGetLastError());
     closesocket(sockfd);
     WSACleanup();

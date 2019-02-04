@@ -37,10 +37,6 @@ Helpers for Ubiquity Discover Protocol probes
 udpprobe	Send UDP payloads and gather response
 - `parse_ubnt_discovery_response`:	Parser for Ubiquiti Discovery Protocol responses
 
-## NOTE * IMPORTANT *
-
-Setting timeouts aren't implemented yet but are on the TODO shortlist.
-
 ## Installation
 
 ```{r install-ex, eval=FALSE}

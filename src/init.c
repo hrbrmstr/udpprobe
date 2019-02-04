@@ -11,7 +11,7 @@
 extern SEXP R_udp_send_payload();
 
 static const R_CallMethodDef CallEntries[] = {
-  {"R_udp_send_payload", (DL_FUNC) &R_udp_send_payload, 3},
+  {"R_udp_send_payload", (DL_FUNC) &R_udp_send_payload, 5},
   {NULL, NULL, 0}
 };
 

@@ -16,19 +16,33 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload) {
+SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP buf_size) {
 
   int sockfd, n;
   socklen_t target_len;
   struct sockaddr_in target_addr;
   struct hostent *target;
-  char resp[4096];
+
+  int sz = REAL(buf_size)[0];
+  unsigned char *resp = (unsigned char *)R_alloc(sz, sizeof(unsigned char));
+
+  struct timeval tv;
+  float secs = REAL(timeout)[0];
+  tv.tv_sec = (int)secs;
+  tv.tv_usec = (secs - (int)secs) * 1000000;
 
   sockfd = socket(AF_INET, SOCK_DGRAM, 0);
   if (sockfd < 0) return(R_NilValue);
 
+  if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
+    Rf_warning("timeout setting failed");
+    close(sockfd);
+    return(R_NilValue);
+  }
+
   target = gethostbyname(CHAR(STRING_ELT(host, 0)));
   if (target == NULL) {
+    Rf_warning("gethostbyname failed");
     close(sockfd);
     return(R_NilValue);
   }
@@ -45,16 +59,20 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload) {
 
   n = sendto(sockfd, RAW(payload), LENGTH(payload), 0, (const struct sockaddr *)&target_addr, target_len);
   if (n <  0) {
+    Rf_warning("socket sending failed");
     close(sockfd);
     return(R_NilValue);
   }
 
-  bzero(resp, 4096);
-  n = recvfrom(sockfd, &resp, 4096, 0, (struct sockaddr *)&target_addr, &target_len);
+  bzero(resp, sz);
+  n = recvfrom(sockfd, resp, sz, 0, (struct sockaddr *)&target_addr, &target_len);
 
   close(sockfd);
 
-  if (n < 0) return(R_NilValue);
+  if (n < 0) {
+    Rf_warning("socket receiving failed");
+    return(R_NilValue);
+  }
 
   SEXP out = Rf_allocVector(RAWSXP, n);
   memcpy(RAW(out), resp, n);

@@ -34,10 +34,6 @@ Helpers for Ubiquity Discover Protocol probes
   - `parse_ubnt_discovery_response`: Parser for Ubiquiti Discovery
     Protocol responses
 
-## NOTE \* IMPORTANT \*
-
-Setting timeouts aren’t implemented yet but are on the TODO shortlist.
-
 ## Installation
 
 ``` r
@@ -72,7 +68,7 @@ c(
 (resp <- udp_send_payload("8.8.8.8", 53, dns_req))
 ##  [1] aa aa 81 80 00 01 00 01 00 00 00 00 07 65 78 61 6d 70
 ## [19] 6c 65 03 63 6f 6d 00 00 01 00 01 c0 0c 00 01 00 01 00
-## [37] 00 0c 47 00 04 5d b8 d8 22
+## [37] 00 4f 7b 00 04 5d b8 d8 22
 
 paste0(as.integer(tail(resp, 4)), collapse = ".")
 ## [1] "93.184.216.34"
@@ -89,7 +85,7 @@ curl::nslookup("example.com")
 (x <- ubnt_discovery_probe(Sys.getenv("UBNT_TEST_HOST")))
 ##   [1] 01 00 00 a0 02 00 0a dc 9f db 3a 5f 09 8a ff bd a9 02
 ##  [19] 00 0a dc 9f db 3b 5f 09 c0 a8 02 01 01 00 06 dc 9f db
-##  [37] 3a 5f 09 0a 00 04 00 01 cb 0d 0b 00 15 39 36 39 20 2d
+##  [37] 3a 5f 09 0a 00 04 00 00 2a 1c 0b 00 15 39 36 39 20 2d
 ##  [55] 20 4a 75 76 65 6e 61 6c 20 52 69 62 65 69 72 6f 0c 00
 ##  [73] 03 4c 4d 35 0d 00 11 4e 45 54 53 55 50 45 52 2d 53 49
 ##  [91] 51 55 45 49 52 41 0e 00 01 02 03 00 22 58 4d 2e 61 72
@@ -99,16 +95,16 @@ curl::nslookup("example.com")
 ## [163] 4d 35
 
 parse_ubnt_discovery_response(x)
-## [Model: LM5; Firmware: XM.ar7240.v5.6.5.29033.160515.2119; Uptime: 1.4 (hrs)
+## [Model: LM5; Firmware: XM.ar7240.v5.6.5.29033.160515.2119; Uptime: 0.1 (hrs)
 ```
 
 ## udpprobe Metrics
 
 | Lang | \# Files |  (%) | LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
 | :--- | -------: | ---: | --: | ---: | ----------: | ---: | -------: | ---: |
-| C    |        3 | 0.33 | 121 | 0.52 |          32 | 0.34 |        4 | 0.03 |
-| R    |        5 | 0.56 |  95 | 0.41 |          30 | 0.32 |       91 | 0.62 |
-| Rmd  |        1 | 0.11 |  18 | 0.08 |          32 | 0.34 |       51 | 0.35 |
+| C    |        3 | 0.33 | 144 | 0.54 |          38 | 0.39 |        4 | 0.03 |
+| R    |        5 | 0.56 | 103 | 0.39 |          30 | 0.31 |       93 | 0.64 |
+| Rmd  |        1 | 0.11 |  18 | 0.07 |          30 | 0.31 |       49 | 0.34 |
 
 ## Code of Conduct
 

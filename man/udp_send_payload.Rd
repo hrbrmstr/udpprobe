@@ -4,7 +4,8 @@
 \alias{udp_send_payload}
 \title{Send a UDP payload and return the response (if any)}
 \usage{
-udp_send_payload(host, port, payload)
+udp_send_payload(host, port, payload, timeout = 5,
+  max_response_size = 4096)
 }
 \arguments{
 \item{host}{host or ip address of target}
@@ -12,6 +13,10 @@ udp_send_payload(host, port, payload)
 \item{port}{UDP port number}
 
 \item{payload}{payload to send (raw bytes; \code{\link[=as.raw]{as.raw()}} will be called if not)}
+
+\item{timeout}{UDP socket transmission/reception timeout (seconds); Default is 5s.}
+
+\item{max_response_size}{maximum size of response to accept (bytes). Default if 4096}
 }
 \description{
 Send a UDP payload and return the response (if any)

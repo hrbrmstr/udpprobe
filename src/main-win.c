@@ -15,13 +15,17 @@
 #include <winsock2.h>
 #include <io.h>
 
-SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload) {
+SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP buf_size) {
 
   SOCKET sockfd;
   SOCKADDR_IN target_addr;
   WSADATA wsaData;
 
-  char resp[4096];
+  int sz = REAL(buf_size)[0];
+  unsigned char *resp = (unsigned char *)R_alloc(sz, sizeof(unsigned char));
+
+  DWORD tv = REAL(timeout)[0] * 1000;
+
   int n, addr_size;
 
   WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -29,6 +33,13 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload) {
   sockfd = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
   if (sockfd == SOCKET_ERROR) {
     Rf_warning("invalid socket: %d", sockfd);
+    WSACleanup();
+    return(R_NilValue);
+  }
+
+  if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&tv, sizeof(tv)) {
+    Rf_warning("timeout setting failed: %d", WSAGetLastError());
+    closesocket(sockfd);
     WSACleanup();
     return(R_NilValue);
   }
@@ -48,8 +59,8 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload) {
     return(R_NilValue);
   }
 
-  memset(&resp, 0, 4096);
-  n = recvfrom(sockfd, (char *)&resp, 4096, 0, (struct sockaddr *)&target_addr, &addr_size);
+  memset(&resp, 0, sz);
+  n = recvfrom(sockfd, (char *)resp, sz, 0, (struct sockaddr *)&target_addr, &addr_size);
 
   if (n < 0) {
     Rf_warning("receive failed: %d", WSAGetLastError());

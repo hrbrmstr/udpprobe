@@ -32,11 +32,17 @@ The core probe function:
 
 - `udp_send_payload`:	Send a UDP payload and return the response (if any)
 
-Helpers for Ubiquity Discover Protocol probes
+Helpers for Ubiquity Discover Protocol probes:
 
 - `ubnt_discovery_probe`:	Send a Ubiquiti Discovery probe to a host with a discovery query payload and receive a response
 udpprobe	Send UDP payloads and gather response
 - `parse_ubnt_discovery_response`:	Parser for Ubiquiti Discovery Protocol responses
+
+Helpers for old, insecure internet services:
+
+- `udp_daytime`:	Send an request for the day/time
+- `udp_echo`:	Send an echo request to an echo server
+- `udp_qotd`:	Send an request for the QOTD
 
 ## Installation
 
@@ -58,7 +64,7 @@ packageVersion("udpprobe")
 
 ```
 
-## Fun with manually crafting DNS records
+### Fun with manually crafting DNS records
 
 What's the IP address of `example.com`?
 
@@ -85,7 +91,7 @@ paste0(as.integer(tail(resp, 4)), collapse = ".")
 curl::nslookup("example.com")
 ```
 
-## Live Ubiquiti Test (internet host redacted)
+### Live Ubiquiti Test (internet host redacted)
 
 ```{r ubnt}
 # the following just does:
@@ -93,6 +99,16 @@ curl::nslookup("example.com")
 (x <- ubnt_discovery_probe(Sys.getenv("UBNT_TEST_HOST")))
 
 parse_ubnt_discovery_response(x)
+```
+
+### Old, indecure internet services:
+
+```{r old}
+cat(udp_echo("91.207.125.246", "the message you want back"), "\n")
+
+cat(udp_qotd("119.48.167.199"), "\n")
+
+cat(udp_daytime("195.34.89.241"), "\n")
 ```
 
 ## udpprobe Metrics

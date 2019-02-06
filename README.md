@@ -28,13 +28,19 @@ The core probe function:
   - `udp_send_payload`: Send a UDP payload and return the response (if
     any)
 
-Helpers for Ubiquity Discover Protocol probes
+Helpers for Ubiquity Discover Protocol probes:
 
   - `ubnt_discovery_probe`: Send a Ubiquiti Discovery probe to a host
     with a discovery query payload and receive a response udpprobe Send
     UDP payloads and gather response
   - `parse_ubnt_discovery_response`: Parser for Ubiquiti Discovery
     Protocol responses
+
+Helpers for old, insecure internet services:
+
+  - `udp_daytime`: Send an request for the day/time
+  - `udp_echo`: Send an echo request to an echo server
+  - `udp_qotd`: Send an request for the QOTD
 
 ## Installation
 
@@ -53,10 +59,10 @@ library(udpprobe)
 
 # current version
 packageVersion("udpprobe")
-## [1] '0.2.0'
+## [1] '0.2.1'
 ```
 
-## Fun with manually crafting DNS records
+### Fun with manually crafting DNS records
 
 What’s the IP address of `example.com`?
 
@@ -79,7 +85,7 @@ c(
 (resp <- udp_send_payload("8.8.8.8", 53, dns_req))
 ##  [1] aa aa 81 80 00 01 00 01 00 00 00 00 07 65 78 61 6d 70
 ## [19] 6c 65 03 63 6f 6d 00 00 01 00 01 c0 0c 00 01 00 01 00
-## [37] 00 24 ca 00 04 5d b8 d8 22
+## [37] 00 4b 0c 00 04 5d b8 d8 22
 
 paste0(as.integer(tail(resp, 4)), collapse = ".")
 ## [1] "93.184.216.34"
@@ -88,32 +94,41 @@ curl::nslookup("example.com")
 ## [1] "93.184.216.34"
 ```
 
-## Live Ubiquiti Test (internet host redacted)
+### Live Ubiquiti Test (internet host redacted)
 
 ``` r
 # the following just does:
 #   udp_send_payload(Sys.getenv("UBNT_TEST_HOST"), 10001L, c(0x01, 0x00, 0x00, 0x00))
 (x <- ubnt_discovery_probe(Sys.getenv("UBNT_TEST_HOST")))
-##   [1] 01 00 00 a0 02 00 0a dc 9f db 3a 5f 09 8a ff bd a9 02
-##  [19] 00 0a dc 9f db 3b 5f 09 c0 a8 02 01 01 00 06 dc 9f db
-##  [37] 3a 5f 09 0a 00 04 00 00 43 58 0b 00 15 39 36 39 20 2d
-##  [55] 20 4a 75 76 65 6e 61 6c 20 52 69 62 65 69 72 6f 0c 00
-##  [73] 03 4c 4d 35 0d 00 11 4e 45 54 53 55 50 45 52 2d 53 49
-##  [91] 51 55 45 49 52 41 0e 00 01 02 03 00 22 58 4d 2e 61 72
-## [109] 37 32 34 30 2e 76 35 2e 36 2e 35 2e 32 39 30 33 33 2e
-## [127] 31 36 30 35 31 35 2e 32 31 31 39 10 00 02 e8 a5 14 00
-## [145] 13 4e 61 6e 6f 53 74 61 74 69 6f 6e 20 4c 6f 63 6f 20
-## [163] 4d 35
+## NULL
 
 parse_ubnt_discovery_response(x)
-## [Model: LM5; Firmware: XM.ar7240.v5.6.5.29033.160515.2119; Uptime: 0.2 (hrs)
+## NULL
+```
+
+### Old, indecure internet services:
+
+``` r
+cat(udp_echo("91.207.125.246", "the message you want back"), "\n")
+## the message you want back
+
+cat(udp_qotd("119.48.167.199"), "\n")
+## "When a stupid man is doing something he is ashamed of, he always declares
+##  that it is his duty." George Bernard Shaw (1856-1950)
+
+cat(udp_daytime("195.34.89.241"), "\n")
+## 06 FEB 2019 16:19:04 CET
+## 
 ```
 
 ## udpprobe Metrics
 
-| Lang | \# Files | (%) | LoC | (%) | Blank lines | (%) | \# Lines | (%) |
-| :--- | -------: | --: | --: | --: | ----------: | --: | -------: | --: |
-| NA   |        0 |   0 |   0 |   0 |           0 |   0 |        0 |   0 |
+| Lang       | \# Files |  (%) | LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
+| :--------- | -------: | ---: | --: | ---: | ----------: | ---: | -------: | ---: |
+| C          |        3 | 0.27 | 147 | 0.44 |          41 | 0.34 |        4 | 0.02 |
+| R          |        6 | 0.55 | 146 | 0.43 |          38 | 0.31 |      140 | 0.70 |
+| Rmd        |        1 | 0.09 |  30 | 0.09 |          36 | 0.30 |       57 | 0.28 |
+| Dockerfile |        1 | 0.09 |  14 | 0.04 |           7 | 0.06 |        0 | 0.00 |
 
 ## Code of Conduct
 

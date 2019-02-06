@@ -28,4 +28,14 @@ testthat::expect_warning(
   udp_send_payload("8.4.1.3", 55, dns_req, timeout=0.1)
 )
 
+context("echo works")
+expect_equal(
+  udp_echo("91.207.125.246", "the message you want back"),
+  "the message you want back"
+)
 
+context("qotd works")
+expect_is(udp_qotd("119.48.167.199"), "character")
+
+context("daytime works")
+expect_is(udp_daytime("195.34.89.241"), "character")

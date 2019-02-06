@@ -1,14 +1,14 @@
 Package: udpprobe
 Type: Package
 Title: Send User Datagram Protocol ('UDP') Probes and Receive Responses
-Version: 0.2.0
-Date: 2019-02-03
+Version: 0.2.1
+Date: 2019-02-06
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
-Description: Unfortunately (but understandably) R has no build in connection 
+Description: Unfortunately (but understandably) R has no built in connection 
     support for the user datagram protocol ('UDP'). We aim to somewhat fix that
     with the ability to send a lightweight probe and receive lightweight
     responses over 'UDP' to a target host/port. Supports Windows, macOS and Linux

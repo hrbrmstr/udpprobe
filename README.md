@@ -13,7 +13,7 @@ Send User Datagram Protocol (‘UDP’) Probes and Receive Responses
 
 ## Description
 
-Unfortunately (but understandably) R has no build in connection support
+Unfortunately (but understandably) R has no built in connection support
 for the user datagram protocol (‘UDP’). We aim to somewhat fix that with
 the ability to send a lightweight probe and receive lightweight
 responses over ‘UDP’ to a target host/port. **Supports Windows, macOS
@@ -79,7 +79,7 @@ c(
 (resp <- udp_send_payload("8.8.8.8", 53, dns_req))
 ##  [1] aa aa 81 80 00 01 00 01 00 00 00 00 07 65 78 61 6d 70
 ## [19] 6c 65 03 63 6f 6d 00 00 01 00 01 c0 0c 00 01 00 01 00
-## [37] 00 38 0b 00 04 5d b8 d8 22
+## [37] 00 24 ca 00 04 5d b8 d8 22
 
 paste0(as.integer(tail(resp, 4)), collapse = ".")
 ## [1] "93.184.216.34"
@@ -96,7 +96,7 @@ curl::nslookup("example.com")
 (x <- ubnt_discovery_probe(Sys.getenv("UBNT_TEST_HOST")))
 ##   [1] 01 00 00 a0 02 00 0a dc 9f db 3a 5f 09 8a ff bd a9 02
 ##  [19] 00 0a dc 9f db 3b 5f 09 c0 a8 02 01 01 00 06 dc 9f db
-##  [37] 3a 5f 09 0a 00 04 00 00 41 b3 0b 00 15 39 36 39 20 2d
+##  [37] 3a 5f 09 0a 00 04 00 00 43 58 0b 00 15 39 36 39 20 2d
 ##  [55] 20 4a 75 76 65 6e 61 6c 20 52 69 62 65 69 72 6f 0c 00
 ##  [73] 03 4c 4d 35 0d 00 11 4e 45 54 53 55 50 45 52 2d 53 49
 ##  [91] 51 55 45 49 52 41 0e 00 01 02 03 00 22 58 4d 2e 61 72
@@ -111,11 +111,9 @@ parse_ubnt_discovery_response(x)
 
 ## udpprobe Metrics
 
-| Lang | \# Files |  (%) | LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
-| :--- | -------: | ---: | --: | ---: | ----------: | ---: | -------: | ---: |
-| C    |        3 | 0.33 | 144 | 0.49 |          38 | 0.37 |        4 | 0.03 |
-| R    |        5 | 0.56 | 124 | 0.42 |          35 | 0.34 |       94 | 0.64 |
-| Rmd  |        1 | 0.11 |  27 | 0.09 |          30 | 0.29 |       50 | 0.34 |
+| Lang | \# Files | (%) | LoC | (%) | Blank lines | (%) | \# Lines | (%) |
+| :--- | -------: | --: | --: | --: | ----------: | --: | -------: | --: |
+| NA   |        0 |   0 |   0 |   0 |           0 |   0 |        0 |   0 |
 
 ## Code of Conduct
 

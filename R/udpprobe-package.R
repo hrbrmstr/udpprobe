@@ -1,6 +1,6 @@
 #' Send UDP payloads and gather response
 #'
-#' Unfortunately (but understandably) R has no build in connection
+#' Unfortunately (but understandably) R has no built in connection
 #' support for the user datagram protocol ('UDP'). We aim to somewhat fix that
 #' with the ability to send a lightweight probe and receive lightweight
 #' responses over 'UDP' to a target host/port. Supports Windows, macOS and Linux

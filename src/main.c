@@ -26,6 +26,8 @@ SEXP R_udp_send_payload(SEXP host, SEXP port, SEXP payload, SEXP timeout, SEXP b
   int sz = REAL(buf_size)[0];
   unsigned char *resp = (unsigned char *)R_alloc(sz, sizeof(unsigned char));
 
+  if (resp == NULL) error("No memory available for UDP receive buffer.");
+
   struct timeval tv;
   float secs = REAL(timeout)[0];
   tv.tv_sec = (int)secs;
